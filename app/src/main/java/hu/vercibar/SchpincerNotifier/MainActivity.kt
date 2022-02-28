@@ -7,6 +7,8 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -22,25 +24,30 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private val list = mutableListOf<String>()
+    private lateinit var adapter: MySimpleArrayAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        // setSupportActionBar(binding.toolbar)
 
         Intent(this, CheckerService::class.java).also {
             intent -> startService(intent)
         }
         registerReceiver(broadcastReceiver, IntentFilter("refreshDate"))
+        adapter = MySimpleArrayAdapter(this, list)
+        findViewById<ListView>(R.id.lastChecked).adapter = adapter
+
     }
 
     private val broadcastReceiver = object: BroadcastReceiver() {
         @RequiresApi(Build.VERSION_CODES.O)
         override fun onReceive(context: Context?, intent: Intent?) {
-            findViewById<TextView>(R.id.lastChecked).text = LocalDateTime.now().format(
-                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM))
+            list.add(LocalDateTime.now().format(
+                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)))
+            adapter.notifyDataSetChanged()
         }
     }
 

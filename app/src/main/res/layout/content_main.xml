@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TextView
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,6 +15,6 @@
         android:id="@+id/lastChecked"
         android:text="@string/temporary">
 
-    </TextView>
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
