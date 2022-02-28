@@ -1,11 +1,21 @@
 package hu.vercibar.SchpincerNotifier
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import hu.vercibar.SchpincerNotifier.databinding.ActivityMainBinding
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +32,15 @@ class MainActivity : AppCompatActivity() {
 
         Intent(this, CheckerService::class.java).also {
             intent -> startService(intent)
+        }
+        registerReceiver(broadcastReceiver, IntentFilter("refreshDate"))
+    }
+
+    private val broadcastReceiver = object: BroadcastReceiver() {
+        @RequiresApi(Build.VERSION_CODES.O)
+        override fun onReceive(context: Context?, intent: Intent?) {
+            findViewById<TextView>(R.id.lastChecked).text = LocalDateTime.now().format(
+                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM))
         }
     }
 

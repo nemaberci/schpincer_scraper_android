@@ -37,6 +37,7 @@ class CheckerService : Service() {
                 val openingExists = document.select(".circles-table a").any {
                     it.attributes().get("href").contains(searchText)
                 }
+                service.refreshDate()
                 if (openingExists) {
 
                     val alarmSound =
@@ -62,6 +63,10 @@ class CheckerService : Service() {
             }
         }
 
+    }
+
+    private fun refreshDate() {
+        sendBroadcast(Intent("refreshDate"))
     }
 
     private fun createNotificationChannel() {

@@ -15,4 +15,5 @@
     <string name="circle_name">Kör neve</string>
     <string name="polling_interval">Lekérdezések közötti intervallum</string>
     <string name="action_settings">Beállítások</string>
+    <string name="temporary">Temporary</string>
 </resources>
