@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="settings"
+        android:title="@string/settings">
+
+        <EditTextPreference
+            android:key="circleName"
+            android:title="@string/circle_name">
+
+        </EditTextPreference>
+
+        <EditTextPreference
+            android:key="pollInterval"
+            android:title="@string/polling_interval">
+
+        </EditTextPreference>
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
